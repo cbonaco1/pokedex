@@ -1,11 +1,19 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PokemonsIndex = require('./components/pokemonsIndex');
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var App = require('./components/app');
 
 var Pokedex = React.createClass({
   render: function(){
       return(
-        <PokemonsIndex />
+        <Router>
+          <Route path="/" component={App}>
+            <Route path="pokemon/:id" component={PokemonDetail}>
+            </Route>
+          </Route>
+        </Router>
       );
   }
 });

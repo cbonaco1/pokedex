@@ -37,4 +37,9 @@ PokemonStore.__onDispatch = function(payload) {
   }
 };
 
+PokemonStore.find = function(id) {
+  var pokemonID = parseInt(id);
+  return _pokemons[pokemonID];
+};
+
 module.exports = PokemonStore;
