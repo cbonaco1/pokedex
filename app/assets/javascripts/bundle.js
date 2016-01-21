@@ -47,6 +47,8 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var PokemonsIndex = __webpack_require__(159);
+	var PokemonDetail = __webpack_require__(236);
+
 	var Router = __webpack_require__(186).Router;
 	var Route = __webpack_require__(186).Route;
 	var App = __webpack_require__(235);
@@ -26586,16 +26588,29 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var History = __webpack_require__(186).History;
 
 	var PokemonIndexItem = React.createClass({
-	  displayName: "PokemonIndexItem",
+	  displayName: 'PokemonIndexItem',
 
+	  mixins: [History],
+
+	  showDetail: function (e) {
+	    e.preventDefault();
+
+	    var cb = function (recipe) {
+	      var stateData = null;
+	      this.history.pushState(stateData, "/pokemon/" + pokemon.id);
+	    }.bind(this);
+	  },
+
+	  //NOTE: onClick not doing anything
 	  render: function () {
 	    return React.createElement(
-	      "li",
-	      { className: "poke-list-item" },
+	      'li',
+	      { className: 'poke-list-item', onClick: this.showDetail },
 	      this.props.pokemon.name,
-	      ": ",
+	      ': ',
 	      this.props.pokemon.poke_type
 	    );
 	  }
@@ -31269,6 +31284,56 @@
 	});
 
 	module.exports = App;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PokemonStore = __webpack_require__(160);
+
+	var PokemonDetail = React.createClass({
+	  displayName: 'PokemonDetail',
+
+	  getInitialState: function () {
+	    return { pokemon: this.getStateFromStore() };
+	  },
+
+	  getStateFromStore: function () {
+	    return PokemonStore.find(this.props.params.id);
+	  },
+
+	  render: function () {
+	    var pokemon = this.state.pokemon;
+	    var details;
+	    if (pokemon) {
+	      details = React.createElement(
+	        'div',
+	        { className: 'detail' },
+	        React.createElement(
+	          'p',
+	          null,
+	          pokemon.name
+	        ),
+	        React.createElement('img', { src: pokemon.image_url })
+	      );
+	    } else {
+	      details = React.createElement('div', { className: 'detail' });
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'pokemon-detail-pane' },
+	        details
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PokemonDetail;
 
 /***/ }
 /******/ ]);
