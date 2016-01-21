@@ -1,16 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var apiUtils = require('./util/apiUtil');
-PokemonStore = require('./stores/pokemonStore');
+var PokemonsIndex = require('./components/pokemonsIndex');
 
 var Pokedex = React.createClass({
   render: function(){
       return(
-        <div>
-          Pokedex!!!
-          { apiUtils.fetchAllPokemon() }
-          { PokemonStore.all() }
-        </div>
+        <PokemonsIndex />
       );
   }
 });

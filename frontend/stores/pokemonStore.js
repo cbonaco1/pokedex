@@ -32,6 +32,7 @@ PokemonStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case PokemonConstants.POKEMONS_RECIEVED:
       PokemonStore.resetPokemons(payload.pokemons);
+      PokemonStore.__emitChange();
       break;
   }
 };
