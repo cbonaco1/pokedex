@@ -1,6 +1,7 @@
 var React = require('react');
 var PokemonStore = require('../stores/pokemonStore');
 var APIUtils = require('../util/apiUtil');
+var ToyIndex = require('./toyIndex');
 
 var PokemonDetail = React.createClass({
 
@@ -24,18 +25,24 @@ var PokemonDetail = React.createClass({
   },
 
   componentWillMount: function () {
-    PokemonStore.addListener(this._updateView);
+    this.listenerToken = PokemonStore.addListener(this._updateView);
+  },
+
+  componentWillUnmount: function() {
+    this.listenerToken.remove();
   },
 
   render: function () {
     var pokemon = this.state.pokemon;
     var details;
+    var toys = "";
     if (pokemon) {
       details =
         <div className="detail">
           <p>{pokemon.name}</p>
           <img src={pokemon.image_url} />
         </div>;
+      toys = <ToyIndex toys={pokemon.toys} />;
     } else {
       details = <div className="detail"></div>;
     }
@@ -45,6 +52,8 @@ var PokemonDetail = React.createClass({
         <div className="pokemon-detail-pane">
           {details}
         </div>
+        <h2>Toys</h2>
+        {toys}
       </div>
     );
   }

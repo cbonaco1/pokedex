@@ -51,7 +51,7 @@
 
 	var Router = __webpack_require__(186).Router;
 	var Route = __webpack_require__(186).Route;
-	var App = __webpack_require__(238);
+	var App = __webpack_require__(240);
 
 	var Pokedex = React.createClass({
 	  displayName: 'Pokedex',
@@ -26628,7 +26628,6 @@
 	  mixins: [History],
 
 	  showDetail: function (e) {
-	    console.log(e);
 	    e.preventDefault();
 
 	    var stateData = null;
@@ -31421,6 +31420,7 @@
 	var React = __webpack_require__(1);
 	var PokemonStore = __webpack_require__(160);
 	var APIUtils = __webpack_require__(183);
+	var ToyIndex = __webpack_require__(238);
 
 	var PokemonDetail = React.createClass({
 	  displayName: 'PokemonDetail',
@@ -31445,12 +31445,17 @@
 	  },
 
 	  componentWillMount: function () {
-	    PokemonStore.addListener(this._updateView);
+	    this.listenerToken = PokemonStore.addListener(this._updateView);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
 	  },
 
 	  render: function () {
 	    var pokemon = this.state.pokemon;
 	    var details;
+	    var toys = "";
 	    if (pokemon) {
 	      details = React.createElement(
 	        'div',
@@ -31462,6 +31467,7 @@
 	        ),
 	        React.createElement('img', { src: pokemon.image_url })
 	      );
+	      toys = React.createElement(ToyIndex, { toys: pokemon.toys });
 	    } else {
 	      details = React.createElement('div', { className: 'detail' });
 	    }
@@ -31473,7 +31479,13 @@
 	        'div',
 	        { className: 'pokemon-detail-pane' },
 	        details
-	      )
+	      ),
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Toys'
+	      ),
+	      toys
 	    );
 	  }
 	});
@@ -31482,6 +31494,62 @@
 
 /***/ },
 /* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ToyIndex = __webpack_require__(239);
+
+	var ToyIndex = React.createClass({
+	  displayName: 'ToyIndex',
+
+	  render: function () {
+	    //Return a ToyIndexItem for each toy
+	    var toys = "";
+
+	    if (this.props.toys) {
+	      toys = this.props.toys.map(function (toy) {
+	        return React.createElement(ToyIndex, { toy: toy });
+	      });
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      toys
+	    );
+	  }
+	});
+
+	module.exports = ToyIndex;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var ToyIndexItem = React.createClass({
+	  displayName: "ToyIndexItem",
+
+	  render: function () {
+	    //return li.toy-list-item with name, happiness, and price
+	    var toy = this.props.toy;
+	    return React.createElement(
+	      "li",
+	      { className: "toy-list-item" },
+	      toy.name,
+	      " - ",
+	      toy.happiness,
+	      " - ",
+	      toy.price
+	    );
+	  }
+	});
+
+	module.exports = ToyIndexItem;
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);

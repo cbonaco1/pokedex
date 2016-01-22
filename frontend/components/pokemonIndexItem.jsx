@@ -5,7 +5,6 @@ var PokemonIndexItem = React.createClass({
   mixins: [History],
 
   showDetail: function (e) {
-    console.log(e);
     e.preventDefault();
 
     var stateData = null;
