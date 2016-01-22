@@ -5,15 +5,13 @@ var PokemonIndexItem = React.createClass({
   mixins: [History],
 
   showDetail: function (e) {
+    console.log(e);
     e.preventDefault();
 
-    var cb = function (recipe) {
-      var stateData = null;
-      this.history.pushState(stateData, "/pokemon/" + pokemon.id);
-    }.bind(this);
+    var stateData = null;
+    this.history.pushState(stateData, "/pokemon/" + this.props.pokemon.id);
   },
 
-  //NOTE: onClick not doing anything
   render: function() {
     return (<li className="poke-list-item" onClick={this.showDetail}>
       {this.props.pokemon.name}: {this.props.pokemon.poke_type}

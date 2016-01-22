@@ -13,15 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20150508164455) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "pokemons", force: :cascade do |t|
     t.string   "name",       null: false
     t.integer  "attack",     null: false
     t.integer  "defense",    null: false
     t.string   "poke_type",  null: false
-    t.string   "moves",                   array: true
+    t.string   "moves",      null: false
     t.string   "image_url",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -37,6 +34,6 @@ ActiveRecord::Schema.define(version: 20150508164455) do
     t.datetime "updated_at"
   end
 
-  add_index "toys", ["pokemon_id"], name: "index_toys_on_pokemon_id", using: :btree
+  add_index "toys", ["pokemon_id"], name: "index_toys_on_pokemon_id"
 
 end

@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PokemonsIndex = require('./components/pokemonsIndex');
-var PokemonDetail = require('./components/PokemonDetail');
+var PokemonDetail = require('./components/pokemonDetail');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;

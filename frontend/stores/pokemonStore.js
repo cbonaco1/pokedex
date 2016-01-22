@@ -34,6 +34,9 @@ PokemonStore.__onDispatch = function(payload) {
       PokemonStore.resetPokemons(payload.pokemons);
       PokemonStore.__emitChange();
       break;
+    case "FETCHED":
+      PokemonStore.__emitChange();
+      break;
   }
 };
 
