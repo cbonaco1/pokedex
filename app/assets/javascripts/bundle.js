@@ -48,6 +48,7 @@
 	var ReactDOM = __webpack_require__(158);
 	var PokemonsIndex = __webpack_require__(159);
 	var PokemonDetail = __webpack_require__(237);
+	var ToyIndex = __webpack_require__(238);
 
 	var Router = __webpack_require__(186).Router;
 	var Route = __webpack_require__(186).Route;
@@ -63,7 +64,11 @@
 	      React.createElement(
 	        Route,
 	        { path: '/', component: App },
-	        React.createElement(Route, { path: 'pokemon/:id', component: PokemonDetail })
+	        React.createElement(
+	          Route,
+	          { path: 'pokemon/:id', component: PokemonDetail },
+	          React.createElement(Route, { path: 'toys/:toyId', component: ToyIndex })
+	        )
 	      )
 	    );
 	  }
@@ -31436,7 +31441,6 @@
 	  //called when properties change
 	  componentWillReceiveProps: function (newProps) {
 	    //Call util function to get pokemon that has newProps
-	    //console.log(newProps.params.id);
 	    APIUtils.fetchPokemon(newProps.params.id);
 	  },
 
@@ -31497,7 +31501,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ToyIndex = __webpack_require__(239);
+	var ToyIndexItem = __webpack_require__(239);
 
 	var ToyIndex = React.createClass({
 	  displayName: 'ToyIndex',
@@ -31508,7 +31512,7 @@
 
 	    if (this.props.toys) {
 	      toys = this.props.toys.map(function (toy) {
-	        return React.createElement(ToyIndex, { toy: toy });
+	        return React.createElement(ToyIndexItem, { toy: toy });
 	      });
 	    }
 

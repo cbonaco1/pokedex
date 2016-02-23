@@ -16,7 +16,6 @@ var PokemonDetail = React.createClass({
   //called when properties change
   componentWillReceiveProps: function (newProps) {
     //Call util function to get pokemon that has newProps
-    //console.log(newProps.params.id);
     APIUtils.fetchPokemon(newProps.params.id);
   },
 

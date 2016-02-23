@@ -1,5 +1,5 @@
 var React = require('react');
-var ToyIndex = require('./toyIndexItem');
+var ToyIndexItem = require('./toyIndexItem');
 
 var ToyIndex = React.createClass({
 
@@ -9,7 +9,7 @@ var ToyIndex = React.createClass({
 
     if(this.props.toys){
       toys = this.props.toys.map(function(toy){
-        return <ToyIndex toy={toy} />
+        return <ToyIndexItem toy={toy} />
       });
     }
 
